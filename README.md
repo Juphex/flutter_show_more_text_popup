@@ -1,4 +1,4 @@
-# flutter_show_more_text_popup with dynamic height and width
+# flutter_show_widget_popup with dynamic height and width
 
 Flutter widget to show widgets in popup or overlay container.
 This fork has removed the Text widget and replaced it with a general Widget, thus any widget can be displayed.
@@ -16,6 +16,7 @@ dependencies:
 ## Usage
 First import show_more_text_popup.dart
 The given height and width are (partially-) ignored and calculated dynamically by flutter.
+The opacity parameter determines wether the widget has transparency.
 
 ```dart
 import 'package:show_more_text_popup/show_more_text_popup.dart';
