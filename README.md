@@ -1,6 +1,7 @@
 # flutter_show_more_text_popup with dynamic height and width
 
-Flutter widget to show text in popup or overlay container
+Flutter widget to show widgets in popup or overlay container.
+This fork has removed the Text widget and replaced it with a general Widget, thus any widget can be displayed.
 
 ## Installation
 
