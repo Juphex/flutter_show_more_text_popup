@@ -22,6 +22,7 @@ class ShowMoreTextPopup {
 
   bool _isVisible = false;
   Widget _widget;
+  double _opacity = 0.0;
 
   BorderRadius _borderRadius;
   EdgeInsetsGeometry _padding;
@@ -33,7 +34,8 @@ class ShowMoreTextPopup {
         Color backgroundColor,
         Widget widget,
         BorderRadius borderRadius,
-        EdgeInsetsGeometry padding}) {
+        EdgeInsetsGeometry padding,
+        double opacity}) {
     this.dismissCallback = onDismiss;
     this._popupHeight = height;
     this._popupWidth = width;
@@ -41,6 +43,7 @@ class ShowMoreTextPopup {
     this._borderRadius = borderRadius ?? BorderRadius.circular(10.0);
     this._padding = padding ?? EdgeInsets.all(4.0);
     this._widget = widget;
+    this._opacity = opacity;
   }
 
   /// Shows a popup near a widget with key [widgetKey] or [rect].
@@ -132,9 +135,9 @@ class ShowMoreTextPopup {
               Positioned(
                 left: offset.dx,
                 top: offset.dy,
-                child: Container(
+                child: Opacity(opacity: _opacity, child: Container(
                     padding: _padding,
-                     width: _popupWidth,
+                    width: _popupWidth,
                     // height: _popupHeight,
                     decoration: BoxDecoration(
                         color: _backgroundColor,
@@ -147,7 +150,7 @@ class ShowMoreTextPopup {
                         ]),
                     child: SingleChildScrollView(
                       child: Column(children: [Wrap(children: [_widget],)],),
-                    )),
+                    )),),
               )
             ],
           ),
