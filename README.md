@@ -1,4 +1,4 @@
-# flutter_show_more_text_popup
+# flutter_show_more_text_popup with dynamic height and width
 
 Flutter widget to show text in popup or overlay container
 
@@ -14,6 +14,7 @@ dependencies:
 
 ## Usage
 First import show_more_text_popup.dart
+The given height and width are (partially-) ignored and calculated dynamically by flutter.
 
 ```dart
 import 'package:show_more_text_popup/show_more_text_popup.dart';
