@@ -9,8 +9,6 @@ class ShowMoreTextPopup {
   double _popupHeight = 200.0;
   double arrowHeight = 10.0;
   OverlayEntry _entry;
-  String _text;
-  TextStyle _textStyle;
   Offset _offset;
   Rect _showRect;
   bool _isDownArrow = true;
@@ -23,28 +21,26 @@ class ShowMoreTextPopup {
   Color _backgroundColor;
 
   bool _isVisible = false;
+  Widget _widget;
 
   BorderRadius _borderRadius;
   EdgeInsetsGeometry _padding;
 
   ShowMoreTextPopup(this.context,
       {double height,
-      double width,
-      VoidCallback onDismiss,
-      Color backgroundColor,
-      String text,
-      TextStyle textStyle,
-      BorderRadius borderRadius,
-      EdgeInsetsGeometry padding}) {
+        double width,
+        VoidCallback onDismiss,
+        Color backgroundColor,
+        Widget widget,
+        BorderRadius borderRadius,
+        EdgeInsetsGeometry padding}) {
     this.dismissCallback = onDismiss;
     this._popupHeight = height;
     this._popupWidth = width;
-    this._text = text;
-    this._textStyle = textStyle ??
-        TextStyle(fontWeight: FontWeight.normal, color: Color(0xFF000000));
     this._backgroundColor = backgroundColor ?? Color(0xFFFFA500);
     this._borderRadius = borderRadius ?? BorderRadius.circular(10.0);
     this._padding = padding ?? EdgeInsets.all(4.0);
+    this._widget = widget;
   }
 
   /// Shows a popup near a widget with key [widgetKey] or [rect].
@@ -54,7 +50,6 @@ class ShowMoreTextPopup {
       return;
     }
 
-    this._text = _text ?? this._text;
     this._showRect = rect ?? _getWidgetGlobalRect(widgetKey);
     this._screenSize = window.physicalSize / window.devicePixelRatio;
     this.dismissCallback = dismissCallback;
@@ -94,7 +89,10 @@ class ShowMoreTextPopup {
     }
 
     double dy = _showRect.top - _popupHeight;
-    if (dy <= MediaQuery.of(context).padding.top + 10) {
+    if (dy <= MediaQuery
+        .of(context)
+        .padding
+        .top + 10) {
       // not enough space above, show popup under the widget.
       dy = arrowHeight + _showRect.height + _showRect.top;
       _isDownArrow = false;
@@ -136,8 +134,8 @@ class ShowMoreTextPopup {
                 top: offset.dy,
                 child: Container(
                     padding: _padding,
-                   // width: _popupWidth,
-                   // height: _popupHeight,
+                     width: _popupWidth,
+                    // height: _popupHeight,
                     decoration: BoxDecoration(
                         color: _backgroundColor,
                         borderRadius: _borderRadius,
@@ -148,10 +146,7 @@ class ShowMoreTextPopup {
                           ),
                         ]),
                     child: SingleChildScrollView(
-                      child: Text(
-                        _text,
-                        style: _textStyle,
-                      ),
+                      child: Column(children: [Wrap(children: [_widget],)],),
                     )),
               )
             ],
