@@ -23,6 +23,8 @@ class ShowMoreTextPopup {
   bool _isVisible = false;
   Widget _widget;
   double _opacity = 0.0;
+  Animation<double> animation;
+  AnimationController controller;
 
   BorderRadius _borderRadius;
   EdgeInsetsGeometry _padding;
@@ -35,7 +37,8 @@ class ShowMoreTextPopup {
         Widget widget,
         BorderRadius borderRadius,
         EdgeInsetsGeometry padding,
-        double opacity}) {
+        double opacity,
+        TickerProvider vsync}) {
     this.dismissCallback = onDismiss;
     this._popupHeight = height;
     this._popupWidth = width;
@@ -44,6 +47,9 @@ class ShowMoreTextPopup {
     this._padding = padding ?? EdgeInsets.all(4.0);
     this._widget = widget;
     this._opacity = opacity;
+    controller = AnimationController(
+        vsync: vsync, duration: Duration(milliseconds: 300));
+    animation = Tween(begin: 0.0, end: _opacity).animate(controller);
   }
 
   /// Shows a popup near a widget with key [widgetKey] or [rect].
@@ -110,6 +116,7 @@ class ShowMoreTextPopup {
   /// Builds Layout of popup for specific [offset]
   LayoutBuilder buildPopupLayout(Offset offset) {
     return LayoutBuilder(builder: (context, constraints) {
+      controller.forward();
       return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
@@ -135,7 +142,8 @@ class ShowMoreTextPopup {
               Positioned(
                 left: offset.dx,
                 top: offset.dy,
-                child: Opacity(opacity: _opacity, child: Container(
+
+                child: FadeTransition(opacity: animation, child: Container(
                     padding: _padding,
                     width: _popupWidth,
                     // height: _popupHeight,
