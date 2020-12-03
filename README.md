@@ -25,13 +25,19 @@ import 'package:show_more_text_popup/show_more_text_popup.dart';
 
 ```dart
 ShowMoreTextPopup popup = ShowMoreTextPopup(context,
-        text: text,
-        textStyle: TextStyle(color: Colors.black),
-        height: 200,
-        width: 100,
-        backgroundColor: Color(0xFF16CCCC),
-        padding: EdgeInsets.all(4.0),
-        borderRadius: BorderRadius.circular(10.0)
+       widget: Text(
+          text,
+          overflow: TextOverflow.clip,
+          style: TextStyle(color: Colors.black),
+          maxLines: 10,
+        ),
+        height: 10,
+        width: 150,
+        backgroundColor: backgroundColorStart,
+        padding: EdgeInsets.all(10.0),
+        borderRadius: BorderRadius.circular(10.0),
+        opacity: 0.9,
+        vsync: this
 );
 
 popup.show(
