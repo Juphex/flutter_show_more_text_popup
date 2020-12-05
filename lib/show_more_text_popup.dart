@@ -124,7 +124,8 @@ class ShowMoreTextPopup {
         },
         child: Material(
           color: Colors.transparent,
-          child: Stack(
+          child:
+          FadeTransition(opacity: animation, child: Stack(
             children: <Widget>[
               // triangle arrow
               Positioned(
@@ -143,7 +144,7 @@ class ShowMoreTextPopup {
                 left: offset.dx,
                 top: offset.dy,
 
-                child: FadeTransition(opacity: animation, child: Container(
+                child:  Container(
                     padding: _padding,
                     width: _popupWidth,
                     // height: _popupHeight,
@@ -159,9 +160,8 @@ class ShowMoreTextPopup {
                     child: SingleChildScrollView(
                       child: Column(children: [Wrap(children: [_widget],)],),
                     )),),
-              )
             ],
-          ),
+          ),),
         ),
       );
     });
